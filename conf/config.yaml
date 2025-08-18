@@ -1,0 +1,63 @@
+defaults:
+  - model: Hiss
+  - data_env: RoninEnv
+  - _self_
+
+# train_frac will be ignored if a val_dset_path is provided in the data_env
+train_frac: 0.8
+lr: 1e-3
+batch_size: 32
+n_epochs: 100
+seed: 5
+
+# Append one-step differences to the input
+append_input_deltas: true
+
+# Downsample model outputs if required. Required for flat models
+low_freq_factor: null
+
+# Used to further partition the training dataset. Used for dataset size ablation
+train_subfrac: 1.0
+
+log_metrics: true
+project_name: test
+
+hydra:
+  job:
+    num: 0
+    chdir: true
+  run:
+    dir: outputs/${project_name}/${now:%Y-%m-%d}/${now:%H-%M-%S}/${hydra.job.num}
+  sweep:
+    dir: outputs/${project_name}/${now:%Y-%m-%d}/${now:%H-%M-%S}
+#---------
+data: custom
+d_model: 512
+features: M
+target: OT
+freq: h
+checkpoints: ./checkpoints/
+seq_len: 96
+label_len: 48
+pred_len: 96
+is_training: 1
+root_path: /root/autodl-tmp/hiss-main/dataset/traffic/
+data_path: traffic.csv
+model_id: traffic_96_96
+e_layers: 2
+enc_in: 862
+dec_in: 862
+c_out: 862
+des: 'Exp'
+itr: 1
+train_epochs: 10
+embed: timeF
+num_workers: 0
+patience: 3
+learning_rate: 0.0001
+loss: MSE
+lradj: type1
+use_amp: store_true
+distil: store_false
+d_layers: 1
+model_name: hiss
