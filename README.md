@@ -1,3 +1,7 @@
+<p align="center" width="100%">
+  <img src='figure/model.png' width="100%">
+</p>
+
 ##  HC-SSMs: Hierarchical Convolutional State Space Models for Efficient and Accurate Spatio-Temporal Dynamical Systems Forecasting
 
 ## Abstract
@@ -20,7 +24,7 @@ pip install -r requirements.txt
 | MNIST| Predict future figure image          | future frame prediction    | https://github.com/mansimov/unsupervised-videos |
 | SERIVIR| Predict future Storm EVent image          | Regular Grid    | https://opendatalab.com/OpenDataLab/SEVIR/tree/main |
 | TaxiBJ| Predict future Traffic flow          | Regular Grid    | https://github.com/TolicWang/DeepST/tree/master/data/TaxiBJ |
-| Pollutant-Diffusion| predict future pollutant diffusion| Regular Grid    | [[Google Cloud]](https://drive.google.com/drive/folders/1UnbQh2WWc6knEHbLn-ZaXrKUZhp7pjt-) |
+| Pollutant-Diffusion| predict future pollutant diffusion| Regular Grid    |https://github.com/pdebench/PDEBench |
 | Shallow-water equations | Predict future fluid height          | Regular Grid    | [[Google Cloud]](https://darus.uni-stuttgart.de/dataset.xhtml?persistentId=doi:10.18419/darus-2986) |
 
 
