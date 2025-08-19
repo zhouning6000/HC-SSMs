@@ -16,7 +16,7 @@ def min_max_normalize(data):
 def min_max_renormalize(data,min_val,max_val):
     renormalized_data = (data ) * (max_val - min_val)+ min_val
     return renormalized_data
-def load_navier_stokes_data(path, sub=1, T_in=10, T_out=10, batch_size=2, reshape=None):
+def load_navier_stokes_data(path, sub=1, T_in=10, T_out=10, batch_size=12, reshape=None):
     ntrain = 3500
     neval=200
     ntest = 200
@@ -162,7 +162,7 @@ if __name__ == "__main__":
     parser.add_argument('--sub', type=int, default=1, help='Subsampling factor.')
     parser.add_argument('--T_in', type=int, default=10, help='Number of input time steps.')
     parser.add_argument('--T_out', type=int, default=10, help='Number of output time steps.')
-    parser.add_argument('--batch_size', type=int, default=2, help='Batch size for training.')
+    parser.add_argument('--batch_size', type=int, default=12, help='Batch size for training.')
     parser.add_argument('--reshape', type=int, nargs='+', help='Optional reshape permutation.')
     parser.add_argument('--lr', type=float, default=0.001, help='Learning rate.')
     parser.add_argument('--num_epochs', type=int, default=10, help='Number of training epochs.')

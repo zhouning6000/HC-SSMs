@@ -4,6 +4,8 @@ from .dataloader_sevir import load_data as load_sevir
 from .dataloader_ns2d import load_data as load_ns2d
 from .dataloader_taxibj_12_12 import load_data as load_taxibj_12_12
 from .dataloader_weather import load_data as load_weather
+from .dataloader_PD import load_data as load_PD
+from .dataloader_2DSWE import load_data as load_2DSWE
 
 def load_data(dataname,batch_size, val_batch_size, data_root, num_workers, **kwargs):
     if dataname == 'taxibj':
@@ -16,5 +18,7 @@ def load_data(dataname,batch_size, val_batch_size, data_root, num_workers, **kwa
         return load_ns2d(batch_size, val_batch_size, data_root, num_workers)
     elif dataname == 'taxibj12-12':
         return load_taxibj_12_12(batch_size, val_batch_size, data_root, num_workers)
-    elif dataname == 'weather':
+    elif dataname == 'PD':
+        return load_PD(batch_size, val_batch_size, data_root, num_workers)    
+    elif dataname == '2DSWE':
         return load_weather(batch_size, val_batch_size, data_root, num_workers)

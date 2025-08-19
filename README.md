@@ -1,50 +1,12 @@
-<p align="center" width="100%">
-  <img src='figure/AAAI2024.jpg' width="100%">
-</p>
-
-
-# Earthfarseer: Versatile Spatio-Temporal Dynamical Systems Modeling in One Model (AAAI2024)
-
-<p align="left">
-<a href="https://arxiv.org/abs/2312.08403" alt="arXiv">
-    <img src="https://img.shields.io/badge/arXiv-2306.11249-b31b1b.svg?style=flat" /></a>
-<a href="https://github.com/chengtan9907/OpenSTL/blob/master/LICENSE" alt="license">
-    <img src="https://img.shields.io/badge/license-Apache--2.0-%23002FA7" /></a>
-<!-- <a href="https://huggingface.co/OpenSTL" alt="Huggingface">
-    <img src="https://img.shields.io/badge/huggingface-OpenSTL-blueviolet" /></a> -->
-<a href="https://openstl.readthedocs.io/en/latest/" alt="docs">
-    <img src="https://readthedocs.org/projects/openstl/badge/?version=latest" /></a>
-<a href="https://github.com/chengtan9907/OpenSTL/issues" alt="docs">
-    <img src="https://img.shields.io/github/issues-raw/chengtan9907/SimVPv2?color=%23FF9600" /></a>
-<a href="https://github.com/chengtan9907/OpenSTL/issues" alt="resolution">
-    <img src="https://img.shields.io/badge/issue%20resolution-1%20d-%23B7A800" /></a>
-<a href="https://img.shields.io/github/stars/chengtan9907/OpenSTL" alt="arXiv">
-    <img src="[https://arxiv.org/abs/2312.08403](https://github.com/easylearningscores/DGODE_ood" /></a>
-</p>
-
-
-[📘Documentation](https://arxiv.org/abs/2312.08403) |
-[🛠️Installation](docs/en/install.md) |
-[🚀Model Zoo](https://arxiv.org/abs/2312.08403) |
-[🤗Huggingface](https://arxiv.org/abs/2312.08403) |
-[👀Visualization](https://arxiv.org/abs/2312.08403) |
-[🆕News](docs/en/changelog.md)
-
-
-##  NOTE: We use the concepts of VQ-VAE and memory to improve Earthfarseer and add more experiments. Currently, it is submitted to TPAMI 2024 as Earthfarseer-V2.
+##  HC-SSMs: Hierarchical Convolutional State Space Models for Efficient and Accurate Spatio-Temporal Dynamical Systems Forecasting
 
 ## Abstract
-Efficiently modeling spatio-temporal physical processes presents a challenge for deep learning. Recent models often lack simplicity and practicality. To address this, we propose EarthFarseer, a concise framework combining parallel local convolutions and global Fourier-based transformer architectures. This approach dynamically captures local-global spatial interactions and dependencies. EarthFarseer also incorporates multi-scale fully convolutional and Fourier architectures for efficient temporal evolution. It demonstrates strong adaptability, fast convergence, and improved local fidelity in long-term predictions across various datasets, achieving state-of-the-art performance.
-
-
-<p align="center" width="100%">
-  <img src='figure/methodAAAI20230701.png' width="100%">
-</p>
+ A challenging task within the deep learning community involves addressing the forecasting modeling of evolutionary dynamic systems, which encompasses issues such as limited local fidelity, poor long-term forecasting performance, low scalability, and inefficiency. This article proposes a Hierarchical Convolutional State Space Models (HC-SSMs) designed to systematically address these challenges, \textcolor{red}{a residual module}—a multi-scale convolution and deconvolution feature extraction component—that captures the integrated structural evolution of general physical processes through multi-scale convolution, thereby enhancing the macrostructural characterization of the entire system. To improve local insights and temporal evolution patterns within a single frame, a deep inverse convolution is carefully designed that integrates Fourier transforms and multi-scale local convolutions for single-frame processing. This approach enhances the interaction between local and global features within a single frame. Additionally, we introduce a multi-level variant of SSMs to uncover significant features in the underlying time series. This process leverages the flexibility of feature sizes and the elasticity of time scales within the SSM architecture, effectively addressing the challenges mentioned above. We experimentally demonstrate the performance and broad applicability of our method against prior state-of-the-art models on physical and synthetic datasets.
 
 
 ## Getting Started
 
-1. Install Python 3.8. For convenience, execute the following command.
+1. Install Python 3.10.18 For convenience, execute the following command.10
 
 ```bash
 pip install -r requirements.txt
@@ -53,12 +15,13 @@ pip install -r requirements.txt
 
 2. Prepare Data. You can obtain experimental datasets from the following links.
 
-
 | Dataset       | Task                                    | Geometry        | Link                                                         |
 | ------------- | --------------------------------------- | --------------- | ------------------------------------------------------------ |
-| Navier-Stokes equation| Predict future fluid vorticity          | Regular Grid    | [[Google Cloud]](https://drive.google.com/drive/folders/1UnbQh2WWc6knEHbLn-ZaXrKUZhp7pjt-) |
+| MNIST| Predict future figure image          | future frame prediction    | https://github.com/mansimov/unsupervised-videos |
+| SERIVIR| Predict future Storm EVent image          | Regular Grid    | https://opendatalab.com/OpenDataLab/SEVIR/tree/main |
+| TaxiBJ| Predict future Traffic flow          | Regular Grid    | https://github.com/TolicWang/DeepST/tree/master/data/TaxiBJ |
+| Pollutant-Diffusion| predict future pollutant diffusion| Regular Grid    | [[Google Cloud]](https://drive.google.com/drive/folders/1UnbQh2WWc6knEHbLn-ZaXrKUZhp7pjt-) |
 | Shallow-water equations | Predict future fluid height          | Regular Grid    | [[Google Cloud]](https://darus.uni-stuttgart.de/dataset.xhtml?persistentId=doi:10.18419/darus-2986) |
-| Moving MNIST| Predict future image          | Regular Grid    | [[Google Cloud]]() |
 
 
 
@@ -67,26 +30,18 @@ pip install -r requirements.txt
 3. Use the following instructions to quickly run the code.
 
 ```python
-python train_main.py 
+python train_main_moving.py --data_path Dataset/mnist.npy --num_epochs 100 --batch_size 12
+python train_main_moving.py --data_path Dataset/SEVIR_IR069_STORMEVENTS_bk.npy --num_epochs 100 --batch_size 12
+python train_main_moving.py --data_path Dataset/BJ16_M32x32_T30_InOut.h5 --num_epochs 100 --batch_size 12
 
 ```
 ## Citation
 
-If you are interested in our repository or our paper, please cite the following paper:
 
-```
-    @inproceedings{wu2024earthfarsser,
-      title={Earthfarsser: Versatile Spatio-Temporal Dynamical Systems Modeling in One Model},
-      author={Wu, Hao and Liang, Yuxuan and Xiong, Wei and Zhou, Zhengyang and Huang, Wei and Wang, Shilong and Wang, Kun},
-      booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
-      volume={38},
-      number={14},
-      pages={15906--15914},
-      year={2024}
-    }
-```
+
 
 ## Contact
 
-If you have any questions or want to use the code, please contact [easyluwu@tencent.com](mailto:easyluwu@tencent.com).
+
+If you have any questions or want to use the code, please contact [445235990@qq.com](mailto:445235990@qq.com).
 

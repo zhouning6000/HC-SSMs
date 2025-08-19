@@ -24,26 +24,27 @@ class HC_model(nn.Module):
         self.hierarchicalModel=HierarchicalModel(shape_in,input_dim=256,output_dim=256,model_dim=256,embed='timeF',freq=10,dropout=0.1) #2024-10-17-moving
 
     def forward(self, input_st_tensors):
-        # Spatial block FoTF
+        # Residual Connection Component
         B, T, C, H, W = input_st_tensors.shape #W 64 B5 C 1 H 64 T 10
         skip_feature = self.skip_conneciton(input_st_tensors) #(5,10,1,64,64)
         spatial_feature = self.fotf_encoder(input_st_tensors)  #(5,10,1,64,64)
+        #Global $\&$ Local Spatio Component
 
         spatial_feature = spatial_feature.reshape(-1, C, H, W)#(5*10,1,64,64) 将batch,len->batch*Len
         spatial_embed, spatial_skip_feature = self.latent_projection(spatial_feature) #spatial_skip_feature(50,512,64,64) spatial_embed (50,512,64,64)
         _, C_, H_, W_ = spatial_embed.shape # BxT, D h w
         spatial_embed = spatial_embed.view(B, T, C_, H_, W_) # B:5, T 10 , D 512  ,h 16, w 16
 
+        # {Global $\&$ Local Temporal Component
 
-        # Temporal block TeDev
-        #spatialtemporal_embed = self.TeDev_block(spatial_embed)
-        #spatialtemporal_embed = spatialtemporal_embed.reshape(B*T, C_, H_, W_) # B:5, T 10 , D 512  ,h 16, w 16
+
         # Mamba TeDev
         spatial_embed_T=spatial_embed.view(B,C_,T,H_*W_)
         Hierarchical_embed=self.hierarchicalModel(spatial_embed_T)
         Hierarchical_embed = Hierarchical_embed.reshape(B*T, C_, H_, W_) # B:5, T 10 , c 512  ,h 16, w 16
 
         predictions = self.dec(Hierarchical_embed, spatial_skip_feature)
+        # Temporal-spatial Hybrid Decoder
 
         # Decoder
         #predictions = self.dec(spatialtemporal_embed, spatial_skip_feature)
