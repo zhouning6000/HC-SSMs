@@ -47,5 +47,4 @@ python train_main_moving.py --data_path Dataset/BJ16_M32x32_T30_InOut.h5 --num_e
 ## Contact
 
 
-If you have any questions or want to use the code, please contact [445235990@qq.com](mailto:445235990@qq.com).
-
+The manuscript is under review and contact information is temporarily unavailable. Thank you for your attention.
