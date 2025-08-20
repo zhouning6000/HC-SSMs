@@ -8,7 +8,7 @@ from tqdm import tqdm
 from model import HC_model
 import numpy as np
 
-def load_navier_stokes_data(path, sub=1, T_in=10, T_out=10, batch_size=12, reshape=None):
+def load_navier_stokes_data(path, sub=1, T_in=10, T_out=10, batch_size=32, reshape=None):
     ntrain = 8000
     neval=1000
     ntest = 1000
@@ -157,7 +157,7 @@ if __name__ == "__main__":
     parser.add_argument('--sub', type=int, default=1, help='Subsampling factor.')
     parser.add_argument('--T_in', type=int, default=10, help='Number of input time steps.')
     parser.add_argument('--T_out', type=int, default=10, help='Number of output time steps.')
-    parser.add_argument('--batch_size', type=int, default=12, help='Batch size for training.')
+    parser.add_argument('--batch_size', type=int, default=32, help='Batch size for training.')
     parser.add_argument('--reshape', type=int, nargs='+', help='Optional reshape permutation.')
     parser.add_argument('--lr', type=float, default=0.001, help='Learning rate.')
     parser.add_argument('--num_epochs', type=int, default=10, help='Number of training epochs.')
